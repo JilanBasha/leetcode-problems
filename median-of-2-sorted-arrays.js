@@ -3,60 +3,21 @@
  * @param {number[]} nums2
  * @return {number}
  */
-
-console.log("script started");
 var findMedianSortedArrays = function(nums1, nums2) {
     var res = [];
-    console.log("after array diclaration");
-    var totalLength = nums1.length + nums2.length;
-    console.log("totalLength % 2 ==> ", parseInt(totalLength) % 2);
-    if(parseInt(totalLength) % 2 !== 0) {
-        console.log("else");
-        for(var i =0, j=0; i<nums1.length || j<nums2.length;){
-            var mid = res.length;
-            if(mid == (totalLength/2 + 1)){
-                let a = res.pop();
-                let b = nums1[i] < nums2[j] ? nums1[i] : nums2[j];
-                return (a+b)/2;
-            }
-            if( i < nums1.length && nums1[i] <= nums2[j]){
-                res[res.length] = nums1[i];
-                i++;
-            } else if(j < nums2.length && nums1[i] > nums2[j]) {
-                res[res.length] = nums2[j];
-                j++;
-            } else if (i < nums1.length) {
-                res[res.length] = nums1[i];
-                i++;
-            } else if(j < nums2.length) {
-                res[res.length] = nums2[j];
-                j++;
-            } 
-        }
+    var res = nums1.concat(nums2).sort((a, b) => (a-b));
+    if(res.length % 2 ===0){
+        return (res[parseInt(res.length / 2) -1] + res[parseInt(res.length / 2)])/2
     } else {
-        console.log("else");
-        for(var i =0, j=0; i<nums1.length || j<nums2.length;){
-            var mid = res.length;
-            if(mid == (totalLength/2 + 1)){
-                return res.pop();
-            }
-            if( i < nums1.length && nums1[i] <= nums2[j]){
-                res[res.length] = nums1[i];
-                i++;
-            } else if(j < nums2.length && nums1[i] > nums2[j]) {
-                res[res.length] = nums2[j];
-                j++;
-            } else if (i < nums1.length) {
-                res[res.length] = nums1[i];
-                i++;
-            } else if(j < nums2.length) {
-                res[res.length] = nums2[j];
-                j++;
-            } 
-        }
+        return res[parseInt(res.length/2)];
     }
     return -1;
 };
 
 
-console.log("first testcase --> ", findMedianSortedArrays([1, 3], [2]));
+console.log("first testcase: [1, 3], [2] --> ", findMedianSortedArrays([1, 3], [2]));
+console.log("second testcase: [1, 2], [3, 4] --> ", findMedianSortedArrays([1, 2], [3, 4]));
+console.log("third testcase: [2], [] --> ", findMedianSortedArrays([2], []));
+console.log("fourth testcase: [], [2, 3] --> ", findMedianSortedArrays([], [2, 3]));
+console.log("fifth testcase: [10001], [10000] --> ", findMedianSortedArrays([10001], [10000]));
+console.log("sixth testcase: [3], [-2, -1] --> ", findMedianSortedArrays([3], [-2, -1]));
