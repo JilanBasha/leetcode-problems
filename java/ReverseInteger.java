@@ -1,13 +1,13 @@
 class ReverseInteger {
     public static int reverse(int x) {
-        int result = 0;
+        long upper = 2147483647L, lower = -2147483648L, converted = 0L;
         if(x < 0) {
             String s = (new StringBuilder(String.valueOf(x))).reverse().toString();
-            result = Integer.valueOf("-" + s.substring(0, s.length()-1));
-            return result;
+            converted = Long.valueOf("-" + s.substring(0, s.length()-1));
+            return converted < lower ? 0 : (int)converted;
         } else {
-            result = Integer.valueOf(((new StringBuilder(String.valueOf(x))).reverse().toString()));
-            return result;
+            converted = Long.valueOf(((new StringBuilder(String.valueOf(x))).reverse().toString()));
+            return converted > upper ? 0 : (int)converted;
         }
     }
 
@@ -16,6 +16,6 @@ class ReverseInteger {
         System.out.println(String.format("-221 -->  %s", reverse(-221)));
         System.out.println(String.format("1000 -->  %s", reverse(1000)));
         System.out.println(String.format("-10 -->  %s", reverse(-10)));
-        // System.out.println(String.format("1534236469 -->  %s", reverse(1534236469)));
+        System.out.println(String.format("1534236469 -->  %s", reverse(1534236469)));
     }
 }
